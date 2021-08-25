@@ -1,26 +1,53 @@
-import React from "react"
+import { Container } from "@material-ui/core"
+import axios from "axios"
+import React, { useEffect, useState } from "react"
+import DictionaryHeader from "./DictionaryHeader"
+import Definitions from "./Definitions"
 
 export const Dictionary = () => {
-  const getMeaning = async() => {
+  const [word, setWord] = useState("")
+  const [meanings, setMeanings] = useState([])
+
+  const getMeaning = async () => {
     const token = "4a28185989b701a7fed9c3757ee749439c5694ee"
     const options = {
-      method: "POST",
-      Headers: {
+      method: "GET",
+      headers: {
         Authorization: `Token ${token}`,
       },
+      url: `https://owlbot.info/api/v4/dictionary/${word}`,
     }
 
     try {
-      const data = await axios
+      const data = await axios(options)
+      console.log("data.data//", data.data)
+      setMeanings(data.data.definitions) //** only Array can be MAPPED */
+    } catch (err) {
+      console.log("err:", err)
     }
-
-
-
   }
+  useEffect(() => {
+    getMeaning()
+  }, [word])
+
+  console.log("meanings...:", meanings)
 
   return (
     <div>
-      <h1>Dictionary</h1>
+      <Container>
+        <DictionaryHeader
+          word={word}
+          setWord={setWord}
+          setMeanings={setMeanings}
+        />
+        {meanings && (
+          <Definitions
+            word={word}
+            meanings={meanings}
+            setMeaning={setMeanings}
+          />
+        )}
+      </Container>
     </div>
   )
 }
