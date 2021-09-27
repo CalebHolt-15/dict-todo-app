@@ -1,4 +1,4 @@
-import { debounce } from "@material-ui/core"
+import { Card, Container, debounce } from "@material-ui/core"
 import { createTheme, TextField, ThemeProvider } from "@material-ui/core"
 import React from "react"
 import "./Dictionary.css"
@@ -16,7 +16,7 @@ const DictionaryHeader = ({ word, setWord, setMeanings }) => {
 
   return (
     <div className="header">
-      <span className="title">{word ? word : "Word Search"}</span>
+      <span className="title">{word ? word : "WORD SEARCH"}</span>
       <div className="input">
         <ThemeProvider theme={darkTheme}>
           <TextField

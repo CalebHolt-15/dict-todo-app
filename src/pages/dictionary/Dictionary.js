@@ -40,6 +40,7 @@ export const Dictionary = () => {
           setWord={setWord}
           setMeanings={setMeanings}
         />
+        <br></br>
         {meanings && (
           <Definitions
             word={word}

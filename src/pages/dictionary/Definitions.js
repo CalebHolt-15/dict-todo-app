@@ -1,28 +1,39 @@
-import { Container } from "@material-ui/core"
+import { Container, Card } from "@material-ui/core"
 import React from "react"
 
 const Definitions = ({ meanings, word }) => {
   console.log("meanings##:", meanings)
   return (
-    <Container>
-      <div>
-        {word === "" ? (
-          <span className="subTitle">Start by typing a word in search</span>
-        ) : (
-          meanings.map((mean) => (
-            //** only Array can be MAPPED */
-            <div>
-              <b>Definition:{mean.definition}</b>
-              <hr style={{ backgroundColor: "black", width: "100%" }} />
-              <b>Type:{mean.type}</b>
-              <hr style={{ backgroundColor: "black", width: "100%" }} />
+    <Card>
+      <Container size="md">
+        <div>
+          {word === "" ? (
+            <span className="subTitle">Start by typing a word in search</span>
+          ) : (
+            meanings.map((mean) => (
+              //** only Array can be MAPPED */
+              <div>
+                <b>Definition:</b>
+                <p>{mean.definition}</p>
 
-              {mean.example && <b>Example:{mean.example}</b>}
-            </div>
-          ))
-        )}
-      </div>
-    </Container>
+                <hr style={{ backgroundColor: "black", width: "100%" }} />
+                <b>TYPE:</b>
+                <p>{mean.type}</p>
+
+                <hr style={{ backgroundColor: "black", width: "100%" }} />
+
+                {mean.example && (
+                  <>
+                    <b>EXAMPLE:</b>
+                    <p>{mean.example}</p>
+                  </>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+      </Container>
+    </Card>
   )
 }
 
