@@ -102,7 +102,7 @@ const TodoList = (props) => {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
       data: { ...newRow },
-      url: "http://localhost:8090/todo/addtodo"
+      url: "https://serene-villani-fc70e9.netlify.app/todo/addtodo"
     }
     try {
       const { data } = await axios(options)
@@ -123,7 +123,7 @@ const TodoList = (props) => {
         headers: { "Content-Type": "application/json" },
         data: { ...values },
         withCredentials: true,
-        url: "http://localhost:8090/todo"
+        url: "https://serene-villani-fc70e9.netlify.app/todo"
       }
       try {
         const { data } = await axios(options)
@@ -134,7 +134,7 @@ const TodoList = (props) => {
       }
     }
     getEmployees()
-  }, ["http://localhost:8090/todo", reload])
+  }, ["https://serene-villani-fc70e9.netlify.app/todo", reload])
 
   //********   Update  ****************
   const onUpdate = async (oldData, newData, resolve) => {
@@ -144,7 +144,7 @@ const TodoList = (props) => {
       headers: { "Content-Type": "application/json" },
       data: { ...newData },
       withCredentials: true,
-      url: ` http://localhost:8090/todo/${oldData._id}`
+      url: ` https://serene-villani-fc70e9.netlify.app/todo/${oldData._id}`
     }
     try {
       const { data } = await axios(options)
@@ -163,7 +163,7 @@ const TodoList = (props) => {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
-      url: `http://localhost:8090/todo/${id}`
+      url: `https://serene-villani-fc70e9.netlify.app/todo/${id}`
     }
     try {
       const { data } = await axios(options)
