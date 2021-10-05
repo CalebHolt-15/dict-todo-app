@@ -39,6 +39,7 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
     { path: "/homepage", icon: <HomeIcon />, name: "Home" },
     { path: "/dictionary", icon: <VideoLibraryIcon />, name: "Dictionary" },
     { path: "/todolist", icon: <YouTubeIcon />, name: "Todolist" },
+    { path: "/react-table", icon: <YouTubeIcon />, name: "ReactTable" }
   ]
 
   const getRoutes = (routes) => {

@@ -26,6 +26,11 @@ import {
   FormControlLabel,
   Switch
 } from "@material-ui/core"
+import { useDispatch, useSelector } from "react-redux"
+import {
+  AddTodoAction,
+  RemoveTodoAction
+} from "../../redux/actions/TodoActions"
 
 //materialTable
 const TodoList = (props) => {
@@ -90,6 +95,10 @@ const TodoList = (props) => {
   const refresh = () => {
     setReload((reload) => !reload)
   }
+  const [todo, setTodo] = useState()
+  const dispatch = useDispatch()
+  const Todo = useSelector((state) => state.Todo)
+  const { todos } = Todo
 
   //CRUD
   //********   Create  ****************
@@ -97,12 +106,14 @@ const TodoList = (props) => {
     console.log("onSubmit.values:", newRow)
     console.log("props:", props)
 
+    dispatch(AddTodoAction(todo))
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
       data: { ...newRow },
-      url: "https://serene-villani-fc70e9.netlify.app/todo/addtodo"
+      url: "http://localhost:8090/todo/addtodo"
     }
     try {
       const { data } = await axios(options)
@@ -123,7 +134,7 @@ const TodoList = (props) => {
         headers: { "Content-Type": "application/json" },
         data: { ...values },
         withCredentials: true,
-        url: "https://serene-villani-fc70e9.netlify.app/todo"
+        url: "http://localhost:8090/todo"
       }
       try {
         const { data } = await axios(options)
@@ -134,7 +145,7 @@ const TodoList = (props) => {
       }
     }
     getEmployees()
-  }, ["https://serene-villani-fc70e9.netlify.app/todo", reload])
+  }, ["http://localhost:8090/todo/addtodo", reload])
 
   //********   Update  ****************
   const onUpdate = async (oldData, newData, resolve) => {
@@ -144,7 +155,7 @@ const TodoList = (props) => {
       headers: { "Content-Type": "application/json" },
       data: { ...newData },
       withCredentials: true,
-      url: ` https://serene-villani-fc70e9.netlify.app/todo/${oldData._id}`
+      url: `http://localhost:8090/todo/${oldData._id}`
     }
     try {
       const { data } = await axios(options)
@@ -159,11 +170,13 @@ const TodoList = (props) => {
   //********   Delete  ****************
   const onDelete = async (id, resolve) => {
     console.log("delete.values.id:", id)
+
+    dispatch(RemoveTodoAction(id))
     const options = {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
-      url: `https://serene-villani-fc70e9.netlify.app/todo/${id}`
+      url: `http://localhost:8090/todo/${id}`
     }
     try {
       const { data } = await axios(options)
