@@ -1,7 +1,0 @@
-git push -u origin master
-//1st push
-git config --global user.email "calebholt100@gmail.com"
-git config --global user.name "CalebHolt-15"
-git config --get-all user.name
-
-//git remote -v
