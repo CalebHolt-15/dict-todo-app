@@ -8,7 +8,7 @@ import {
   AddTodoAction,
   GetTodoAction,
   RemoveTodoAction
-} from "../../redux/actions/todoActions"
+} from "../../redux/actions/todo/todoActions"
 
 function TodoList() {
   const [todoData, setTodoData] = useState([])

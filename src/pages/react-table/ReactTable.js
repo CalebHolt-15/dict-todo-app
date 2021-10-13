@@ -6,7 +6,7 @@ import {
   AddTodoAction,
   GetTodoAction,
   RemoveTodoAction
-} from "../../redux/actions/todoActions"
+} from "../../redux/actions/todo/todoActions"
 import { COLUMNS, GROUPED_COLUMNS } from "./columns"
 import "./table.css"
 import { Container } from "@material-ui/core"

@@ -1,10 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 import thunk from "redux-thunk"
-import { TodoReducer } from "../reducers/todoReducers"
+import { EmployeeReducer } from "../reducers/employee/employeeReducers"
+import { TodoReducer } from "../reducers/todo/todoReducers"
 
 const rootReducer = combineReducers({
-  Todo: TodoReducer //useSelector can access this
+  Todo: TodoReducer, //useSelector can access this
+  Employee: EmployeeReducer
 })
 console.log("///store ")
 

@@ -1,4 +1,4 @@
-import * as actionTypes from "../actions/types"
+import * as actionTypes from "../../actions/todo/types"
 
 export const TodoReducer = (state = { todos: [] }, action) => {
   console.log("///action:", action)

@@ -30,7 +30,7 @@ import { useDispatch, useSelector } from "react-redux"
 import {
   AddTodoAction,
   RemoveTodoAction
-} from "../../redux/actions/todoActions"
+} from "../../redux/actions/todo/todoActions"
 
 //materialTable
 const Material_Table = (props) => {
