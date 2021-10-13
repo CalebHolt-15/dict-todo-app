@@ -7,8 +7,9 @@ import {
   GetTodoAction,
   RemoveTodoAction
 } from "../../redux/actions/todoActions"
-import { COLUMNS } from "./columns"
+import { COLUMNS, GROUPED_COLUMNS } from "./columns"
 import "./table.css"
+import { Container } from "@material-ui/core"
 
 const ReactTable = () => {
   const [empData, setEmpData] = useState([])
@@ -21,8 +22,14 @@ const ReactTable = () => {
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => empData, [empData])
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data }) //  ES6 shorthand syntax
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    footerGroups,
+    rows,
+    prepareRow
+  } = useTable({ columns, data }) //  ES6 shorthand syntax
 
   //********   Read *************/
   useEffect(() => {
@@ -101,41 +108,54 @@ const ReactTable = () => {
   }
 
   return (
-    <>
-      <span className="title">EMPLOYEE TABLE</span>
+    <Container>
+      <>
+        <span className="title">EMPLOYEE TABLE</span>
 
-      {empData.length !== 0 ? (
-        <table {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row)
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    )
-                  })}
+        {empData.length !== 0 ? (
+          <table {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
                 </tr>
-              )
-            })}
-          </tbody>
-        </table>
-      ) : (
-        <h4> There is no Employee Data yet </h4>
-      )}
-    </>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row)
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      return (
+                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      )
+                    })}
+                  </tr>
+                )
+              })}
+            </tbody>
+            <tfoot>
+              {footerGroups.map((footerGroup) => (
+                <tr {...footerGroup.getFooterGroupProps()}>
+                  {footerGroup.headers.map((column) => (
+                    <td {...column.getFooterProps}>
+                      {column.render("Footer")}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tfoot>
+          </table>
+        ) : (
+          <h4> There is no Employee Data yet </h4>
+        )}
+      </>
+    </Container>
   )
 }
 
