@@ -4,9 +4,9 @@ import { NavbarWithRouter } from "./components/Navbar/Navbar"
 import { useStyles } from "./components/Navbar/useStyles"
 import HomePage from "./pages/home/HomePage"
 import MaterialTable from "./pages/material-table/Material_Table"
-import TodoList from "./pages/react-table/TodoList"
 import DisplayData from "./pages/display-data/DisplayData"
 import ReactTable from "./pages/react-table/ReactTable"
+import TodoList from "./pages/todo-list/TodoList"
 
 export const App = () => {
   const classes = useStyles()

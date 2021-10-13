@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react"
 import styled from "styled-components"
 import { useTable, usePagination } from "react-table"
-import "./App.css"
+import "./TodoList.css"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -55,25 +55,6 @@ function TodoList() {
       name: ""
     })
   }
-
-  // const columns = React.useMemo(
-  //   () => [
-  //     {
-  //       Header: "Name",
-  //       accessor: "name" // accessor is the "key" in the data
-  //     },
-  //     {
-  //       Header: "Date",
-  //       accessor: "date"
-  //     }
-  //   ],
-  //   []
-  // )
-
-  // const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-  //   useTable({ columns, data: todoData })
-
-  //********   Create  ****************
 
   const onSubmit = async (todos) => {
     console.log("////onSubmit.todos:", todos)
