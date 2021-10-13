@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
-import styled from "styled-components"
 import { useTable, usePagination } from "react-table"
-import "./App.css"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -9,14 +7,22 @@ import {
   GetTodoAction,
   RemoveTodoAction
 } from "../../redux/actions/todoActions"
+import { COLUMNS } from "./columns"
+import "./table.css"
 
-function ReactTable() {
+const ReactTable = () => {
   const [empData, setEmpData] = useState([])
   const [todo, setTodo] = useState([])
   const dispatch = useDispatch()
   const Todo = useSelector((state) => state.Todo) //Todo:from store
   const { todos } = Todo
   console.log("##Todo:", Todo)
+
+  const columns = useMemo(() => COLUMNS, [])
+  const data = useMemo(() => empData, [empData])
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data }) //  ES6 shorthand syntax
 
   //********   Read *************/
   useEffect(() => {
@@ -27,7 +33,7 @@ function ReactTable() {
         headers: { "Content-Type": "application/json" },
         data: { ...values },
         withCredentials: true,
-        url: "http://localhost:8090/todo"
+        url: "http://localhost:8090/employee"
       }
       try {
         const { data } = await axios(options)
@@ -41,20 +47,6 @@ function ReactTable() {
     }
     getEmployees()
   }, [])
-  console.log("Todo:", Todo)
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Name",
-        accessor: "name" // accessor is the "key" in the data
-      }
-    ],
-    []
-  )
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data: empData })
 
   //********   Create  ****************
   const onSubmit = async (todo) => {
@@ -110,63 +102,39 @@ function ReactTable() {
 
   return (
     <>
-      <div className="App">
-        <header className="App-header">
-          <span className="title">TODO LIST TABLE</span>
-          <br />
-          <br />
+      <span className="title">EMPLOYEE TABLE</span>
 
-          {empData !== null ? (
-            <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
-              <thead>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th
-                        {...column.getHeaderProps()}
-                        style={{
-                          borderBottom: "solid 3px red",
-                          background: "aliceblue",
-                          color: "black"
-                          // fontWeight: "bold"
-                        }}
-                      >
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
+      {empData.length !== 0 ? (
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
                 ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
-                  prepareRow(row)
-                  return (
-                    <tr {...row.getRowProps()}>
-                      {row.cells.map((cell) => {
-                        return (
-                          <td
-                            {...cell.getCellProps()}
-                            style={{
-                              padding: "10px",
-                              border: "solid 1px gray",
-                              background: "#343D55",
-                              fontSize: 15
-                            }}
-                          >
-                            {cell.render("Cell")}
-                          </td>
-                        )
-                      })}
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          ) : (
-            <span> NO TODO LIST</span>
-          )}
-        </header>
-      </div>
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row)
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    )
+                  })}
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      ) : (
+        <h4> There is no Employee Data yet </h4>
+      )}
     </>
   )
 }

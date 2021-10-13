@@ -44,9 +44,9 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
     { path: "/home", icon: <HomeIcon />, name: "Home" },
     { path: "/dictionary", icon: <VideoLibraryIcon />, name: "Dictionary" },
     { path: "/material-table", icon: <TocIcon />, name: "MaterialTable" },
-    { path: "/react-table", icon: <TableChartIcon />, name: "ReactTable" },
     { path: "/todolist", icon: <AddCircleOutlineIcon />, name: "TodoList" },
-    { path: "/display-data", icon: <AddCircleIcon />, name: "DisplayData" }
+    { path: "/display-data", icon: <AddCircleIcon />, name: "DisplayData" },
+    { path: "/react-table", icon: <TableChartIcon />, name: "ReactTable" }
   ]
 
   const getRoutes = (routes) => {
