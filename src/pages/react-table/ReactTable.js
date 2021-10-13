@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { useTable, usePagination } from "react-table"
+import { useTable, useSortBy, usePagination } from "react-table"
 import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -29,7 +29,7 @@ const ReactTable = () => {
     footerGroups,
     rows,
     prepareRow
-  } = useTable({ columns, data }) //  ES6 shorthand syntax
+  } = useTable({ columns, data }, useSortBy) //  ES6 shorthand syntax
 
   //********   Read *************/
   useEffect(() => {
@@ -118,8 +118,15 @@ const ReactTable = () => {
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
+                    <th {...column.getHeaderProps(column.getSortByToggleProps)}>
                       {column.render("Header")}
+                      <span>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? "🔽"
+                            : "🔼"
+                          : ""}
+                      </span>
                     </th>
                   ))}
                 </tr>
