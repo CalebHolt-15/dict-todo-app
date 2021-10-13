@@ -35,6 +35,7 @@ const PaginationTable = () => {
     state,
     gotoPage,
     pageCount,
+    setPageSize,
     prepareRow
   } = useTable(
     {
@@ -48,7 +49,7 @@ const PaginationTable = () => {
     usePagination
   ) //  ES6 shorthand syntax
 
-  const { pageIndex } = state
+  const { pageIndex, pageSize } = state
 
   //********   Read *************/
   useEffect(() => {
@@ -139,6 +140,16 @@ const PaginationTable = () => {
                 {pageIndex + 1} of {pageOptions.length}
               </strong>{" "}
             </span>
+            <select
+              value={pageSize}
+              onChange={(e) => setPageSize(Number(e.target.value))}
+            >
+              {[10, 15, 20, 25, 30, 50].map((pageSize) => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
             <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
               {"<<"}
             </button>
