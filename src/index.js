@@ -8,7 +8,7 @@ import { NotFound } from "./errors/NotFound"
 import { UnAuthoriseRoute } from "./auth/UnauthoriseRoute"
 import { Provider } from "react-redux"
 import { createStore } from "redux"
-import  store from "./redux/store"
+import store from "./redux/storeConfig/store"
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
