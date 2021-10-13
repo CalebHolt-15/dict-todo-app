@@ -46,7 +46,12 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
     { path: "/material-table", icon: <TocIcon />, name: "MaterialTable" },
     { path: "/todolist", icon: <AddCircleOutlineIcon />, name: "TodoList" },
     { path: "/display-data", icon: <AddCircleIcon />, name: "DisplayData" },
-    { path: "/react-table", icon: <TableChartIcon />, name: "ReactTable" }
+    { path: "/react-table", icon: <TableChartIcon />, name: "ReactTable" },
+    {
+      path: "/pagination-table",
+      icon: <TableChartIcon />,
+      name: "PaginationTable"
+    }
   ]
 
   const getRoutes = (routes) => {
