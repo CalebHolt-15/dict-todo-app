@@ -33,7 +33,7 @@ import {
 } from "../../redux/actions/todoActions"
 
 //materialTable
-const TodoList = (props) => {
+const Material_Table = (props) => {
   const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -238,4 +238,4 @@ const TodoList = (props) => {
   )
 }
 
-export default TodoList
+export default Material_Table

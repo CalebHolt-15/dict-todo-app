@@ -42,15 +42,24 @@
 }
 .allTodos{
   list-style: none;
-  margin:0;
+  margin: 0.1px;
   padding:0
 }
 
 .singleTodo{
-  border-radius: 50px;
+  border-radius: 40px;
   margin:10px 0;
   background: #5dadf8;
-  padding:10px 20px;
+  padding:5px 10px;
+  display:flex;
+  width:450px;
+  align-items:center
+}
+.singleTodo1{
+  border-radius: 40px;
+  margin:10px 0;
+  background: #3caf3c;
+  padding:5px 10px;
   display:flex;
   width:450px;
   align-items:center

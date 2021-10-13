@@ -6,15 +6,17 @@ import axios from "axios"
 import { useDispatch, useSelector } from "react-redux"
 import {
   AddTodoAction,
+  GetTodoAction,
   RemoveTodoAction
-} from "../../redux/actions/TodoActions"
+} from "../../redux/actions/todoActions"
 
 function ReactTable() {
   const [empData, setEmpData] = useState([])
   const [todo, setTodo] = useState([])
   const dispatch = useDispatch()
-  const Todo = useSelector((state) => state.Todo)
+  const Todo = useSelector((state) => state.Todo) //Todo:from store
   const { todos } = Todo
+  console.log("##Todo:", Todo)
 
   //********   Read *************/
   useEffect(() => {
@@ -29,24 +31,23 @@ function ReactTable() {
       }
       try {
         const { data } = await axios(options)
-        console.log("employees:", data)
+        console.log("///employees:", data)
+        dispatch(GetTodoAction(data))
+
         setEmpData(data)
       } catch (e) {
         console.error(e)
       }
     }
     getEmployees()
-  }, ["http://localhost:8090/todo"])
+  }, [])
+  console.log("Todo:", Todo)
 
   const columns = React.useMemo(
     () => [
       {
         Header: "Name",
         accessor: "name" // accessor is the "key" in the data
-      },
-      {
-        Header: "Date",
-        accessor: "date"
       }
     ],
     []
@@ -57,14 +58,14 @@ function ReactTable() {
 
   //********   Create  ****************
   const onSubmit = async (todo) => {
-    console.log("onSubmit.values:", todo)
-    // dispatch(AddTodoAction(todo))
+    console.log("//onSubmit.todo:", todo)
+    console.log("Todo:", Todo)
 
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
-      data: { ...todo },
+      data: { name: todo },
       url: "http://localhost:8090/todo/addtodo"
     }
     try {
@@ -74,68 +75,96 @@ function ReactTable() {
       console.error(e)
     }
   }
-  console.log("todo:", todo)
+
+  //********   Delete  ****************
+  const onDelete = async (id) => {
+    console.log("delete.values.id:", id)
+
+    dispatch(RemoveTodoAction(id))
+    const options = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+      url: `http://localhost:8090/todo/${id}`
+    }
+    try {
+      const { data } = await axios(options)
+      console.log("deleted///:", data)
+    } catch (e) {
+      console.error(e)
+    }
+  }
 
   const handleSubmit = (e) => {
+    console.log("//todo: ", todo)
     e.preventDefault()
     dispatch(AddTodoAction(todo))
+    onSubmit(todo)
   }
 
   const removeHandler = (t) => {
+    console.log("//t:", t)
     dispatch(RemoveTodoAction(t))
+    // onDelete(t)
   }
 
   return (
     <>
       <div className="App">
         <header className="App-header">
-          <span className="title">TODO LIST</span>
-          <form onSubmit={handleSubmit}>
-            <input
-              placeholder="Enter a TODO"
-              style={{
-                width: 350,
-                padding: 10,
-                borderRadius: 20,
-                border: "none",
-                fontSize: 20
-                // backgroundColor: "grey"
-              }}
-              onChange={(e) => setTodo(e.target.value)}
-            />
-            <button
-              type="submit"
-              style={{
-                padding: 12,
-                borderRadius: 25,
-                marginLeft: 20,
-                fontSize: 15
-              }}
-              onClick={(e) => {}}
-            >
-              Go
-            </button>
-          </form>
-          <ul className="allTodos">
-            {todos &&
-              todos.map((t) => (
-                <li key={t.id} className="singleTodo">
-                  <span className="todoText">{t.todo}</span>
-                  <button
-                    style={{
-                      padding: 10,
-                      borderRadius: 25,
-                      border: "1px solid white",
-                      color: "white",
-                      backgroundColor: "orange"
-                    }}
-                    onClick={() => removeHandler(t)}
-                  >
-                    Delete
-                  </button>
-                </li>
-              ))}
-          </ul>
+          <span className="title">TODO LIST TABLE</span>
+          <br />
+          <br />
+
+          {empData !== null ? (
+            <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+              <thead>
+                {headerGroups.map((headerGroup) => (
+                  <tr {...headerGroup.getHeaderGroupProps()}>
+                    {headerGroup.headers.map((column) => (
+                      <th
+                        {...column.getHeaderProps()}
+                        style={{
+                          borderBottom: "solid 3px red",
+                          background: "aliceblue",
+                          color: "black"
+                          // fontWeight: "bold"
+                        }}
+                      >
+                        {column.render("Header")}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+              <tbody {...getTableBodyProps()}>
+                {rows.map((row) => {
+                  prepareRow(row)
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <td
+                            {...cell.getCellProps()}
+                            style={{
+                              padding: "10px",
+                              border: "solid 1px gray",
+                              background: "#343D55",
+                              fontSize: 15
+                            }}
+                          >
+                            {cell.render("Cell")}
+                          </td>
+                        )
+                      })}
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          ) : (
+            <span> NO TODO LIST</span>
+          )}
         </header>
       </div>
     </>
@@ -143,52 +172,3 @@ function ReactTable() {
 }
 
 export default ReactTable
-
-{
-  /* <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th
-                      {...column.getHeaderProps()}
-                      style={{
-                        borderBottom: "solid 3px red",
-                        background: "aliceblue",
-                        color: "black"
-                        // fontWeight: "bold"
-                      }}
-                    >
-                      {column.render("Header")}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row)
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td
-                          {...cell.getCellProps()}
-                          style={{
-                            padding: "10px",
-                            border: "solid 1px gray",
-                            background: "#343D55",
-                            fontSize: 15
-                          }}
-                        >
-                          {cell.render("Cell")}
-                        </td>
-                      )
-                    })}
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        */
-}
