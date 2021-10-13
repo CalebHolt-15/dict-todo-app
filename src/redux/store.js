@@ -3,17 +3,18 @@ import { composeWithDevTools } from "redux-devtools-extension"
 import thunk from "redux-thunk"
 import { TodoReducer } from "./reducers/todoReducers"
 
-const reducer = combineReducers({
-  Todo: TodoReducer
+const rootReducer = combineReducers({
+  Todo: TodoReducer //useSelector can access this
 })
+console.log("///store ")
 
 const initialState = {}
 const middleware = [thunk] //there can be multiple middlewares here
 
 const store = createStore(
-  reducer,
+  rootReducer,
   initialState,
-  composeWithDevTools(applyMiddleware(...middleware)) // passing middleware
+  composeWithDevTools(applyMiddleware(...middleware)) // passing middleware/applyMiddleware=> enhancer
 )
 
 export default store

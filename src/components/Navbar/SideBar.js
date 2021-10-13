@@ -25,6 +25,11 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday"
 import clsx from "clsx"
 import { useStyles } from "./useStyles"
 import { useTheme } from "@material-ui/core/styles"
+import StorageIcon from "@material-ui/icons/Storage"
+import ListIcon from "@material-ui/icons/List"
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline"
+import TocIcon from "@material-ui/icons/Toc"
+import AddCircleIcon from "@material-ui/icons/AddCircle"
 
 const SideBar = ({ opened, toggleDrawer, history, window }) => {
   const classes = useStyles()
@@ -36,10 +41,12 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
   const [open, setOpen] = useState(false)
 
   const routes = [
-    { path: "/homepage", icon: <HomeIcon />, name: "Home" },
+    { path: "/home", icon: <HomeIcon />, name: "Home" },
     { path: "/dictionary", icon: <VideoLibraryIcon />, name: "Dictionary" },
-    { path: "/todolist", icon: <YouTubeIcon />, name: "Todolist" },
-    { path: "/react-table", icon: <YouTubeIcon />, name: "ReactTable" }
+    { path: "/material-table", icon: <TocIcon />, name: "MaterialTable" },
+    { path: "/react-table", icon: <TableChartIcon />, name: "ReactTable" },
+    { path: "/todolist", icon: <AddCircleOutlineIcon />, name: "TodoList" },
+    { path: "/display-data", icon: <AddCircleIcon />, name: "DisplayData" }
   ]
 
   const getRoutes = (routes) => {
@@ -100,13 +107,13 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
           variant="permanent"
           className={clsx(classes.drawer, {
             [classes.drawerOpen]: opened,
-            [classes.drawerClose]: !opened,
+            [classes.drawerClose]: !opened
           })}
           classes={{
             paper: clsx({
               [classes.drawerOpen]: opened,
-              [classes.drawerClose]: !opened,
-            }),
+              [classes.drawerClose]: !opened
+            })
           }}
         >
           <div className={classes.toolbar} />
