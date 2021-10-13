@@ -1,24 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react"
 import { useTable, useSortBy, usePagination } from "react-table"
 import axios from "axios"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  AddTodoAction,
-  GetTodoAction,
-  RemoveTodoAction
-} from "../../redux/actions/todoActions"
 import { COLUMNS, GROUPED_COLUMNS } from "./columns"
 import "./table.css"
 import { Container } from "@material-ui/core"
 
 const PaginationTable = () => {
   const [empData, setEmpData] = useState([])
-  const [todo, setTodo] = useState([])
-  const dispatch = useDispatch()
-  const Todo = useSelector((state) => state.Todo) //Todo:from store
-  const { todos } = Todo
-  console.log("##Todo:", Todo)
-
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => empData, [empData])
 
@@ -59,14 +47,12 @@ const PaginationTable = () => {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         data: { ...values },
-        withCredentials: true,
         url: "http://localhost:8090/employee"
       }
       try {
         const { data } = await axios(options)
         console.log("///employees:", data)
-        dispatch(GetTodoAction(data))
-
+        // dispatch(GetEmpAction(data))
         setEmpData(data)
       } catch (e) {
         console.error(e)
