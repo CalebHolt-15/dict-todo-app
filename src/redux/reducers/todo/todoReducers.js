@@ -1,13 +1,13 @@
 import * as actionTypes from "../../actions/todo/types"
 
 export const TodoReducer = (state = { todos: [] }, action) => {
-  console.log("///action:", action)
+  console.log("///action:", action) //action:{type,payload} from reducer
   // console.log("///state:", state)
 
   switch (action.type) {
     case actionTypes.ADD_TODO:
       return {
-        todos: [...state.todos, action.payload] //payload=[...todos, newData]
+        todos: [...state.todos, action.payload] //payload=[...todos, newData] =newState
       }
 
     case actionTypes.GET_TODO:
@@ -24,3 +24,5 @@ export const TodoReducer = (state = { todos: [] }, action) => {
       return state //current state
   }
 }
+
+//reducer(curState,action) = newState

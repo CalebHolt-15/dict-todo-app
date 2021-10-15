@@ -15,7 +15,7 @@ export const AddTodoAction = (newData) => (dispatch, getState) => {
     type: actionTypes.ADD_TODO, // calling the reducer
     payload: newData // this will be passed from our react app
   })
-  // }
+  //} //action:{type,payload} to reducer
 }
 
 export const GetTodoAction = (data) => (dispatch, getState) => {
