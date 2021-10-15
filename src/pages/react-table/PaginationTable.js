@@ -4,11 +4,17 @@ import axios from "axios"
 import { COLUMNS, GROUPED_COLUMNS } from "./columns"
 import "./table.css"
 import { Container } from "@material-ui/core"
+import { GetEmployeeAction } from "../../redux/actions/employee/employeeActions"
+import { useDispatch, useSelector } from "react-redux"
 
 const PaginationTable = () => {
   const [empData, setEmpData] = useState([])
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => empData, [empData])
+  const dispatch = useDispatch()
+  const Employee = useSelector((state) => state.Employee)
+  const { employees } = Employee
+  console.log("redux.employees:", employees)
 
   const {
     getTableProps,
@@ -27,15 +33,16 @@ const PaginationTable = () => {
     prepareRow
   } = useTable(
     {
-      columns,
-      data,
+      columns, //  ES6 shorthand syntax
+      data, // from useMemo
+      // data: employees, //from redux
       initialState: {
         pageIndex: 0
       }
     },
     useSortBy,
     usePagination
-  ) //  ES6 shorthand syntax
+  )
 
   const { pageIndex, pageSize } = state
 
@@ -51,8 +58,8 @@ const PaginationTable = () => {
       }
       try {
         const { data } = await axios(options)
-        console.log("///employees:", data)
-        // dispatch(GetEmpAction(data))
+        console.log("employees:", data)
+        dispatch(GetEmployeeAction(data))
         setEmpData(data)
       } catch (e) {
         console.error(e)
