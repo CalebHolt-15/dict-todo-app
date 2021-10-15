@@ -31,6 +31,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline"
 import TocIcon from "@material-ui/icons/Toc"
 import AddCircleIcon from "@material-ui/icons/AddCircle"
 import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty"
+import SubjectIcon from "@material-ui/icons/Subject"
 
 const SideBar = ({ opened, toggleDrawer, history, window }) => {
   const classes = useStyles()
@@ -67,6 +68,11 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
       path: "/counter3",
       icon: <HourglassEmptyIcon />,
       name: "Counter3"
+    },
+    {
+      path: "/parent",
+      icon: <SubjectIcon />,
+      name: "Parent_Component"
     }
   ]
 

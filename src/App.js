@@ -11,6 +11,7 @@ import PaginationTable from "./pages/react-table/PaginationTable"
 import Counter from "./pages/hooks-implement/counter/Counter"
 import Counter2 from "./pages/hooks-implement/counter/Counter2"
 import Counter3 from "./pages/hooks-implement/counter/Counter3"
+import ParentComponent from "./pages/hooks-implement/useCallback/ParentComponent"
 
 export const App = () => {
   const classes = useStyles()
@@ -32,6 +33,7 @@ export const App = () => {
             <Route path="/counter" component={Counter} />
             <Route path="/counter2" component={Counter2} />
             <Route path="/counter3" component={Counter3} />
+            <Route path="/parent" component={ParentComponent} />
 
             <Redirect to="/404" />
           </Switch>
