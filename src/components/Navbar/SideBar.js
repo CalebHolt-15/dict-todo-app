@@ -62,6 +62,11 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
       path: "/counter2",
       icon: <HourglassEmptyIcon />,
       name: "Counter2"
+    },
+    {
+      path: "/counter3",
+      icon: <HourglassEmptyIcon />,
+      name: "Counter3"
     }
   ]
 
