@@ -9,6 +9,7 @@ import ReactTable from "./pages/react-table/ReactTable"
 import TodoList from "./pages/todo-list/TodoList"
 import PaginationTable from "./pages/react-table/PaginationTable"
 import Counter from "./pages/hooks-implement/counter/Counter"
+import Counter2 from "./pages/hooks-implement/counter/Counter2"
 
 export const App = () => {
   const classes = useStyles()
@@ -28,6 +29,7 @@ export const App = () => {
             <Route path="/todolist" component={TodoList} />
             <Route path="/display-data" component={DisplayData} />
             <Route path="/counter" component={Counter} />
+            <Route path="/counter2" component={Counter2} />
 
             <Redirect to="/404" />
           </Switch>
