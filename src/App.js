@@ -8,6 +8,7 @@ import DisplayData from "./pages/display-data/DisplayData"
 import ReactTable from "./pages/react-table/ReactTable"
 import TodoList from "./pages/todo-list/TodoList"
 import PaginationTable from "./pages/react-table/PaginationTable"
+import Counter from "./pages/hooks-implement/counter/Counter"
 
 export const App = () => {
   const classes = useStyles()
@@ -26,6 +27,7 @@ export const App = () => {
             <Route path="/pagination-table" component={PaginationTable} />
             <Route path="/todolist" component={TodoList} />
             <Route path="/display-data" component={DisplayData} />
+            <Route path="/counter" component={Counter} />
 
             <Redirect to="/404" />
           </Switch>

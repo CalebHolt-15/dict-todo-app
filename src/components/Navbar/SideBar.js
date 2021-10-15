@@ -30,6 +30,7 @@ import ListIcon from "@material-ui/icons/List"
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline"
 import TocIcon from "@material-ui/icons/Toc"
 import AddCircleIcon from "@material-ui/icons/AddCircle"
+import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty"
 
 const SideBar = ({ opened, toggleDrawer, history, window }) => {
   const classes = useStyles()
@@ -51,6 +52,11 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
       path: "/pagination-table",
       icon: <TableChartIcon />,
       name: "PaginationTable"
+    },
+    {
+      path: "/counter",
+      icon: <HourglassEmptyIcon />,
+      name: "Counter"
     }
   ]
 
