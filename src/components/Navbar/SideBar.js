@@ -55,6 +55,11 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
       name: "PaginationTable"
     },
     {
+      path: "/row-select-table",
+      icon: <TableChartIcon />,
+      name: "RowSelectTable"
+    },
+    {
       path: "/counter",
       icon: <HourglassEmptyIcon />,
       name: "Counter"
@@ -68,6 +73,11 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
       path: "/counter3",
       icon: <HourglassEmptyIcon />,
       name: "Counter3"
+    },
+    {
+      path: "/counter-useMemo",
+      icon: <HourglassEmptyIcon />,
+      name: "CounterUseMemo"
     },
     {
       path: "/parent",

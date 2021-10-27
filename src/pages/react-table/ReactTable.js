@@ -110,7 +110,7 @@ const ReactTable = () => {
   return (
     <Container>
       <>
-        <span className="title">EMPLOYEE TABLE</span>
+        <span className="title">REACT TABLE WITH FOOTER</span>
 
         {empData.length !== 0 ? (
           <table {...getTableProps()}>

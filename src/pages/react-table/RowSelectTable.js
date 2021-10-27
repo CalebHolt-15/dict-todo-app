@@ -1,13 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { useTable, useSortBy, usePagination } from "react-table"
+import { useTable, useSortBy, usePagination, useRowSelect } from "react-table"
 import axios from "axios"
 import { COLUMNS, GROUPED_COLUMNS } from "./columns"
 import "./table.css"
 import { Container } from "@material-ui/core"
 import { GetEmployeeAction } from "../../redux/actions/employee/employeeActions"
 import { useDispatch, useSelector } from "react-redux"
+import Checkbox from "./Checkbox"
+import { ArrowDropDown, Delete, Update } from "@material-ui/icons"
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline"
+import EditIcon from "@material-ui/icons/Edit"
 
-const PaginationTable = () => {
+const RowSelectTable = () => {
   const [empData, setEmpData] = useState([])
   const columns = useMemo(() => COLUMNS, [])
   const data = useMemo(() => empData, [empData])
@@ -30,7 +34,8 @@ const PaginationTable = () => {
     gotoPage,
     pageCount,
     setPageSize,
-    prepareRow
+    prepareRow,
+    selectedFlatRows
   } = useTable(
     {
       columns, //  ES6 shorthand syntax
@@ -41,7 +46,30 @@ const PaginationTable = () => {
       }
     },
     useSortBy,
-    usePagination
+    usePagination,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => {
+        return [
+          {
+            id: "selection",
+            Header: ({ getToggleAllRowsSelectedProps }) => (
+              <Checkbox {...getToggleAllRowsSelectedProps()} />
+            ),
+            Cell: ({ row }) => (
+              <div>
+                <Checkbox
+                  {...row.getToggleRowSelectedProps()}
+                  onClick={() => console.log("clicked")}
+                />
+              </div>
+            )
+          },
+
+          ...columns
+        ]
+      })
+    }
   )
 
   const { pageIndex, pageSize } = state
@@ -70,7 +98,7 @@ const PaginationTable = () => {
 
   return (
     <Container>
-      <span className="title">REACT TABLE WITH PAGINATION</span>
+      <span className="title">REACT TABLE WITH ROW SELECTION</span>
 
       {empData.length !== 0 ? (
         <>
@@ -97,13 +125,19 @@ const PaginationTable = () => {
               {page.map((row) => {
                 prepareRow(row)
                 return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                      )
-                    })}
-                  </tr>
+                  <>
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <>
+                            <td {...cell.getCellProps()}>
+                              {cell.render("Cell")}
+                            </td>
+                          </>
+                        )
+                      })}
+                    </tr>
+                  </>
                 )
               })}
             </tbody>
@@ -159,6 +193,18 @@ const PaginationTable = () => {
               {">>"}
             </button>
           </div>
+          {/* <p>Selected Rows: {Object.keys(selectedRowIds).length}</p> */}
+          <pre>
+            <code>
+              {JSON.stringify(
+                {
+                  selectedFlatRows: selectedFlatRows.map((row) => row.original)
+                },
+                null,
+                2
+              )}
+            </code>
+          </pre>
         </>
       ) : (
         <h4> There is no Employee Data yet </h4>
@@ -167,4 +213,4 @@ const PaginationTable = () => {
   )
 }
 
-export default PaginationTable
+export default RowSelectTable

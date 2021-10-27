@@ -12,6 +12,8 @@ import Counter from "./pages/hooks-implement/counter/Counter"
 import Counter2 from "./pages/hooks-implement/counter/Counter2"
 import Counter3 from "./pages/hooks-implement/counter/Counter3"
 import ParentComponent from "./pages/hooks-implement/useCallback/ParentComponent"
+import RowSelectTable from "./pages/react-table/RowSelectTable"
+import CounterUseMemo from "./pages/hooks-implement/useMemo/CounterUseMemo"
 
 export const App = () => {
   const classes = useStyles()
@@ -33,7 +35,9 @@ export const App = () => {
             <Route path="/counter" component={Counter} />
             <Route path="/counter2" component={Counter2} />
             <Route path="/counter3" component={Counter3} />
+            <Route path="/counter-useMemo" component={CounterUseMemo} />
             <Route path="/parent" component={ParentComponent} />
+            <Route path="/row-select-table" component={RowSelectTable} />
 
             <Redirect to="/404" />
           </Switch>

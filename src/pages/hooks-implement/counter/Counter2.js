@@ -49,8 +49,12 @@ const Counter2 = () => {
     <Container>
       <div>
         <div>
-          <h1>Counter1: {state.firstCounter}</h1>
-          <h1>Counter2: {state.secondCounter}</h1>
+          <h1>
+            <u>useReducer Hook with state and action as objects:</u>
+          </h1>
+
+          <h2>Counter1: {state.firstCounter}</h2>
+          <h2>Counter2: {state.secondCounter}</h2>
         </div>
         <button
           onClick={() => dispatch({ type: actionTypes.INCREMENT, value: 1 })}

@@ -25,7 +25,11 @@ const Counter3 = () => {
     <Container>
       <div>
         <div>
-          <h1>Counter: {state}</h1>
+          <h1>
+            <u> Multiple useReducer Hook:</u>
+          </h1>
+
+          <h2>Counter: {state}</h2>
         </div>
         <button onClick={() => dispatch(actionTypes.INCREMENT)}>
           Increment
@@ -35,7 +39,7 @@ const Counter3 = () => {
         </button>
         <button onClick={() => dispatch(actionTypes.RESET)}>Reset</button>
         <div>
-          <h1>CounterTwo: {state2}</h1>
+          <h2>CounterTwo: {state2}</h2>
         </div>
         <button onClick={() => dispatch2(actionTypes.INCREMENT)}>
           Increment

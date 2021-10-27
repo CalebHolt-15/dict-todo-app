@@ -4,7 +4,9 @@ const Title = () => {
   console.log("Rendering Title Component")
   return (
     <div>
-      <h1>Implementing useCallback Hook</h1>
+      <h1>
+        <u>Implementing useCallback Hook and React.memo:</u>
+      </h1>
     </div>
   )
 }

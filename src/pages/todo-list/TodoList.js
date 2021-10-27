@@ -11,7 +11,6 @@ import {
 } from "../../redux/actions/todo/todoActions"
 
 function TodoList() {
-  const [todoData, setTodoData] = useState([])
   const [todo, setTodo] = useState({ name: "" })
   const dispatch = useDispatch()
   const Todo = useSelector((state) => state.Todo)
@@ -21,11 +20,6 @@ function TodoList() {
 
   todos && todos.map((t) => console.log("#t", t))
 
-  const [loading, setLoading] = useState(true)
-  const [reload, setReload] = useState(false)
-  const refresh = () => {
-    setReload((reload) => !reload)
-  }
   //********   Read *************/
   useEffect(() => {
     const getTodoData = async () => {
@@ -40,8 +34,6 @@ function TodoList() {
         const { data } = await axios(options)
         dispatch(GetTodoAction(data))
         console.log("///todoData:", data)
-        // setTodoData(data)
-        // setLoading(false)
       } catch (e) {
         console.error(e)
       }
@@ -56,6 +48,7 @@ function TodoList() {
     })
   }
 
+  //********   Create *************/
   const onSubmit = async (todos) => {
     console.log("////onSubmit.todos:", todos)
 
@@ -71,8 +64,6 @@ function TodoList() {
       console.log("added///:", data)
       dispatch(AddTodoAction(data))
       clear()
-
-      // refresh()
     } catch (e) {
       console.error(e)
     }
@@ -81,7 +72,6 @@ function TodoList() {
   const handleSubmit = (e) => {
     console.log("//todo: ", todo)
     e.preventDefault()
-    // dispatch(AddTodoAction(todo))
     onSubmit(todo)
   }
 
@@ -149,7 +139,7 @@ function TodoList() {
               .map((t) => {
                 return (
                   <ul className="allTodos">
-                    <li className="singleTodo">
+                    <li key={t._id} className="singleTodo">
                       <span className="todoText">{t.name}</span>
                       <button
                         style={{

@@ -1,6 +1,7 @@
 import React, { useReducer } from "react"
 import { Container } from "@material-ui/core"
 import * as actionTypes from "./types"
+// import reducer from './reducer'
 
 const Counter = () => {
   const initialState = 0
@@ -19,12 +20,13 @@ const Counter = () => {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
-
+ 
   return (
     <Container>
       <div>
         <div>
-          <h1>Counter: {state}</h1>
+          <h1><u>useReducer Hook with simple state and action:</u></h1>
+          <h2>Counter: {state}</h2>
         </div>
         <button onClick={() => dispatch(actionTypes.INCREMENT)}>
           Increment
