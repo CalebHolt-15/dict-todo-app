@@ -83,7 +83,8 @@ const SideBar = ({ opened, toggleDrawer, history, window }) => {
       path: "/parent",
       icon: <SubjectIcon />,
       name: "Parent_Component"
-    }
+    },
+    { path: "/display", icon: <AddCircleIcon />, name: "Display" }
   ]
 
   const getRoutes = (routes) => {
